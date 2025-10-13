@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define MAX 5
 
-char stack[MAX];  // Changed to char for consistency
+char stack[MAX];  
 int top = -1;
 
 void push(char x) {
@@ -69,4 +69,5 @@ int main() {
                 printf("Invalid operation\n");
         }
     }
+
 }
