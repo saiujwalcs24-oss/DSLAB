@@ -88,9 +88,66 @@ void createLinkedList(int n) {
         insertAtEnd(data);
     }
 }
+void deleteFirst(){
+    struct Node* temp;
+    if ( head == NULL){
+        printf("List is empty\n");
+        return;
+    }
+    if (head->next == NULL){
+        temp = head ;
+        head = NULL;
+        free(temp);
+        return;
+    }
+
+    temp = head ; 
+    head = head -> next ;
+    free(temp);
+}
+void deleteLast(){
+    struct Node *temp , *prev;
+    if ( head == NULL){
+        printf("empty list\n");
+        return;
+    }
+    temp = head ; 
+    prev = NULL ;
+
+    while (temp ->next != NULL){
+        prev = temp ; 
+        temp = temp -> next; 
+    }
+    prev ->next = temp -> next ;
+
+    free(temp);
+    
+}
+void deleteSpecific(int value){
+    struct Node *temp = head, *prev = NULL;
+    if (head == NULL){
+        printf("list is empty\n");
+        return;
+    }
+
+    if ( head->data == value){
+        deleteFirst();
+        return;
+    }
+    while ( temp != NULL && temp -> data != value){
+        prev = temp ;
+        temp = temp->next;
+    }
+    if ( temp == NULL){
+        printf("element not in list\n");
+        return;
+    }
+    prev->next = temp -> next;
+    free(temp);
+}
 
 int main() {
-    int n, data, position, choice;
+    int n, data, position, choice , value;
 
     while (1) {
         printf("\nMenu:\n");
@@ -99,7 +156,10 @@ int main() {
         printf("3. Insert at End\n");
         printf("4. Insert at Any Position\n");
         printf("5. Display List\n");
-        printf("6. Exit\n");
+        printf("6. Delete from front\n");
+        printf("7. delete from last\n");
+        printf("8. delete specific element\n");
+        printf("9. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -122,7 +182,7 @@ int main() {
             case 4:
                 printf("Enter data to insert: ");
                 scanf("%d", &data);
-                printf("Enter position to insert at: ");
+
                 scanf("%d", &position);
                 insertAtAny(data, position);
                 break;
@@ -130,6 +190,21 @@ int main() {
                 display();
                 break;
             case 6:
+                deleteFirst();
+                display();
+                break;
+            case 7:
+                deleteLast();
+                display();
+                break;
+            case 8:
+                printf("enter value to be deleted:");
+                scanf("%d" , &value);
+                deleteSpecific(value);
+                display();
+                break;
+                
+            case 9:
                 printf("Exiting...\n");
                 return 0;
             default:
